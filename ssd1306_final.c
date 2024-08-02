@@ -201,7 +201,7 @@ void menu_init(void *arg)
             if (menu_rtr) vTaskDelete(handle6);
          menu_rtr =  handle1 = handle2 = handle3 = handle5 = handle6 = NULL;
         } else if (gpio_32 == 1 && menu_rtr) {
-			xTaskCreatePinnedToCore(&task_4, "Menu return", 4096, NULL, 5, &menu_rtr, 1);
+			xTaskCreatePinnedToCore(&menu_return, "Menu return", 4096, NULL, 5, &menu_rtr, 1);
             if (handle1) vTaskDelete(handle1);
             if (handle2) vTaskDelete(handle2);
             if (handle3) vTaskDelete(handle3);
@@ -230,7 +230,7 @@ void menu_return(void *arg)
      xSemaphoreGive(xMutex);	
      while(1)
      {
-		ssd1306_display_text(&dev, 0, "Gpio x for Option 1", 20, false);
+        ssd1306_display_text(&dev, 0, "Gpio x for Option 1", 20, false);
         ssd1306_display_text(&dev, 1, "Gpio y for Option 2", 20, false);
         ssd1306_display_text(&dev, 2, "Gpuo z for Option 3", 20, false);
         ssd1306_display_text(&dev, 3, "Gpio a for Option 4", 20, false); 
