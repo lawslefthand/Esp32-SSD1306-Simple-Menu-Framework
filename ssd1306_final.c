@@ -130,6 +130,29 @@ void task_6(void *arg)
     }
 }
 
+void menu_return(void *arg)
+{
+	if(xSemaphoreTake(xMutex, portMAX_DELAY))
+	{
+	 ESP_LOGI(TAG, "Menu rtr is running");
+     i2c_driver_delete(I2C_NUM_0);
+     vTaskDelay(1000/portTICK_PERIOD_MS);
+     SSD1306_t dev;
+     i2c_master_init(&dev, 21, 22, 27);
+     ssd1306_clear_screen(&dev, false);
+     ssd1306_init(&dev, 128, 64);
+     ssd1306_contrast(&dev, 0xff);
+     xSemaphoreGive(xMutex);	
+     while(1)
+     {
+        ssd1306_display_text(&dev, 0, "Gpio x for Option 1", 20, false);
+        ssd1306_display_text(&dev, 1, "Gpio y for Option 2", 20, false);
+        ssd1306_display_text(&dev, 2, "Gpuo z for Option 3", 20, false);
+        ssd1306_display_text(&dev, 3, "Gpio a for Option 4", 20, false); 
+	 }
+	}
+}
+
 //main menu init task (this task HAS to keep running)
 void menu_init(void *arg)
 {
@@ -215,28 +238,7 @@ void menu_init(void *arg)
      vTaskDelay(pdMS_TO_TICKS(100)); 
 }
 
-void menu_return(void *arg)
-{
-	if(xSemaphoreTake(xMutex, portMAX_DELAY))
-	{
-	 ESP_LOGI(TAG, "Menu rtr is running");
-     i2c_driver_delete(I2C_NUM_0);
-     vTaskDelay(1000/portTICK_PERIOD_MS);
-     SSD1306_t dev;
-     i2c_master_init(&dev, 21, 22, 27);
-     ssd1306_clear_screen(&dev, false);
-     ssd1306_init(&dev, 128, 64);
-     ssd1306_contrast(&dev, 0xff);
-     xSemaphoreGive(xMutex);	
-     while(1)
-     {
-        ssd1306_display_text(&dev, 0, "Gpio x for Option 1", 20, false);
-        ssd1306_display_text(&dev, 1, "Gpio y for Option 2", 20, false);
-        ssd1306_display_text(&dev, 2, "Gpuo z for Option 3", 20, false);
-        ssd1306_display_text(&dev, 3, "Gpio a for Option 4", 20, false); 
-	 }
-	}
-}
+
 
 
 void app_main()
