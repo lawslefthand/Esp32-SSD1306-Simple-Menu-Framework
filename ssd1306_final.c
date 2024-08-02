@@ -223,7 +223,7 @@ void menu_init(void *arg)
             if (handle6) vTaskDelete(handle6);
             if (menu_rtr) vTaskDelete(handle6);
          menu_rtr =  handle1 = handle2 = handle3 = handle5 = handle6 = NULL;
-        } else if (gpio_32 == 1 && menu_rtr) {
+        } else if (gpio_32 == 1 && menu_rtr == NULL) {
 			xTaskCreatePinnedToCore(&menu_return, "Menu return", 4096, NULL, 5, &menu_rtr, 1);
             if (handle1) vTaskDelete(handle1);
             if (handle2) vTaskDelete(handle2);
