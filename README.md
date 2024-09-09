@@ -14,10 +14,6 @@ Make sure you include this library in your project for proper functionality with
 - **Thread-Safe Menu Framework**  
   The framework provides a thread-safe environment for creating and navigating menus on an OLED display. It ensures smooth task management and synchronization between various threads.
 
-- **Multiple Display Modes**  
-  - **OLED Menu Mode**:  
-    For projects using the SSD1306 OLED display, the `ssd1306_final.c` file provides an optimized and tested menu interface.
-
 ## File Overview
 
 - **`ssd1306_final.c`**  
